@@ -1,119 +1,215 @@
-DROP TABLE IF EXISTS Possede;
-DROP TABLE IF EXISTS Equipe;
-DROP TABLE IF EXISTS Est_Compose_De;
-DROP TABLE IF EXISTS Est_Dans;
-DROP TABLE IF EXISTS Materiau;
-DROP TABLE IF EXISTS Inventaire;
-DROP TABLE IF EXISTS Vaisseau;
-DROP TABLE IF EXISTS Arme;
-DROP TABLE IF EXISTS Joueur;
-DROP TABLE IF EXISTS Rarete;
-DROP TABLE IF EXISTS Amelioration;
+
+-- Généré le :  Dim 12 Février 2017 à 00:29
+-- Version du serveur :  5.7.14
+-- Version de PHP :  5.6.25
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `amelioration`
+--
+
+CREATE TABLE `amelioration` (
+  `amelioration_id` int(11) NOT NULL AUTO_INCREMENT,
+  `amelioration_nom` varchar(50) NOT NULL,
+  `amelioration_pv` int(11) DEFAULT '0',
+  `amelioration_vitesse` int(11) DEFAULT '0',
+  `amelioration_degat` int(11) DEFAULT '0',
+  `amelioration_image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `arme`
+--
+
+CREATE TABLE `arme` (
+  `arme_id` int(11) NOT NULL AUTO_INCREMENT,
+  `arme_nom` varchar(50) DEFAULT NULL,
+  `arme_type` varchar(50) DEFAULT NULL,
+  `arme_degat` int(11) DEFAULT '1',
+  `arme_munition` int(11) DEFAULT '1',
+  `arme_recharge` int(11) DEFAULT '1',
+  `arme_image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `inventaire`
+--
+
+CREATE TABLE `inventaire` (
+  `inventaire_joueur_id` int(11) NOT NULL,
+  `inventaire_materiau_id` int(11) NOT NULL,
+  `inventaire_quantite` int(11) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `joueur`
+--
+
+CREATE TABLE `joueur` (
+  `joueur_id` int(11) NOT NULL AUTO_INCREMENT,
+  `joueur_nom` varchar(50) NOT NULL,
+  `joueur_mdp` varchar(40) NOT NULL,
+  `joueur_niveau` int(11) DEFAULT '1',
+  `joueur_xp` int(11) DEFAULT '0'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `joueur_vaisseau_amelioration`
+--
+
+CREATE TABLE `joueur_vaisseau_amelioration` (
+  `jva_joueur_id` int(11) NOT NULL,
+  `jva_vaisseau_id` int(11) NOT NULL,
+  `jva_amelioration_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `materiau`
+--
+
+CREATE TABLE `materiau` (
+  `materiau_id` int(11) NOT NULL AUTO_INCREMENT,
+  `materiau_nom` varchar(50) NOT NULL,
+  `materiau_description` varchar(1024) DEFAULT NULL,
+  `materiau_rarete` varchar(50) DEFAULT 'Commun',
+  `materiau_image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `materiau_amelioration`
+--
+
+CREATE TABLE `materiau_amelioration` (
+  `ma_materiau_id` int(11) NOT NULL,
+  `ma_amelioration_id` int(11) NOT NULL,
+  `ma_quantite` int(11) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `vaisseau`
+--
+
+CREATE TABLE `vaisseau` (
+  `vaisseau_id` int(11) NOT NULL AUTO_INCREMENT,
+  `vaisseau_nom` varchar(50) DEFAULT NULL,
+  `vaisseau_type` varchar(50) DEFAULT NULL,
+  `vaisseau_pv` int(11) DEFAULT NULL,
+  `vaisseau_degat` int(11) DEFAULT '0',
+  `vaisseau_vitesse` int(11) DEFAULT NULL,
+  `vaisseau_image` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `vaisseau_arme`
+--
+
+CREATE TABLE `vaisseau_arme` (
+  `va_vaisseau_id` int(11) NOT NULL,
+  `va_arme_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-CREATE TABLE IF NOT EXISTS Joueur (
-  joueur_id INT NOT NULL AUTO_INCREMENT,
-  joueur_nom VARCHAR(50) NOT NULL,
-  joueur_mdp VARCHAR(40) NOT NULL,
-  joueur_niveau INT DEFAULT 1,
-  joueur_xp INT DEFAULT 0,
-  PRIMARY KEY (joueur_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Index pour la table `amelioration`
+--
+ALTER TABLE `amelioration`
+  ADD PRIMARY KEY (`amelioration_id`);
 
-CREATE TABLE IF NOT EXISTS Inventaire (
-  inventaire_id INT NOT NULL AUTO_INCREMENT,
-  inventaire_joueur_id INT NOT NULL,
-  inventaire_slot_max INT DEFAULT 10,
-  PRIMARY KEY (inventaire_id),
-  CONSTRAINT Inventaire_fk_1 FOREIGN KEY (inventaire_joueur_id) REFERENCES Joueur(joueur_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Index pour la table `arme`
+--
+ALTER TABLE `arme`
+  ADD PRIMARY KEY (`arme_id`);
 
-CREATE TABLE IF NOT EXISTS Rarete (
-  rarete_id INT NOT NULL AUTO_INCREMENT,
-  rarete_libelle VARCHAR(50),
-  PRIMARY KEY (rarete_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Index pour la table `inventaire`
+--
+ALTER TABLE `inventaire`
+  ADD PRIMARY KEY (`inventaire_joueur_id`,`inventaire_materiau_id`),
+  ADD KEY `inventaire_fk_2` (`inventaire_materiau_id`);
 
-CREATE TABLE IF NOT EXISTS Materiau (
-  materiau_id INT NOT NULL AUTO_INCREMENT,
-  materiau_image VARCHAR(255),
-  materiau_description VARCHAR(1024),
-  materiau_rarete_id INT NOT NULL,
-  PRIMARY KEY (materiau_id),
-  CONSTRAINT Materiau_fk_1 FOREIGN KEY (materiau_rarete_id) REFERENCES Rarete(rarete_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Index pour la table `joueur`
+--
+ALTER TABLE `joueur`
+  ADD PRIMARY KEY (`joueur_id`);
 
-CREATE TABLE IF NOT EXISTS Est_Dans (
-  ed_inventaire_id INT NOT NULL,
-  ed_materiau_id INT NOT NULL,
-  ed_quantite INT DEFAULT 1,
-  PRIMARY KEY (ed_inventaire_id, ed_materiau_id),
-  CONSTRAINT ED_fk_1 FOREIGN KEY (ed_inventaire_id) REFERENCES Inventaire(inventaire_id),
-  CONSTRAINT ED_fk_2 FOREIGN KEY (ed_materiau_id) REFERENCES Materiau(materiau_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Index pour la table `joueur_vaisseau_amelioration`
+--
+ALTER TABLE `joueur_vaisseau_amelioration`
+  ADD PRIMARY KEY (`jva_joueur_id`,`jva_amelioration_id`,`jva_vaisseau_id`),
+  ADD KEY `jva_fk_2` (`jva_amelioration_id`),
+  ADD KEY `jva_fk_3` (`jva_vaisseau_id`);
 
-CREATE TABLE IF NOT EXISTS Amelioration (
-  amelioration_id INT NOT NULL AUTO_INCREMENT,
-  amelioration_nom VARCHAR(50) NOT NULL,
-  amelioration_pv INT DEFAULT 0,
-  amelioration_vitesse INT DEFAULT 0,
-  amerlioration_degat INT DEFAULT 0,
-  PRIMARY KEY (amelioration_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Index pour la table `materiau`
+--
+ALTER TABLE `materiau`
+  ADD PRIMARY KEY (`materiau_id`);
 
-CREATE TABLE IF NOT EXISTS Est_Compose_De (
-  ecd_materiau_id INT NOT NULL,
-  ecd_amelioration_id INT NOT NULL,
-  ecd_quantite INT DEFAULT 1,
-  PRIMARY KEY (ecd_materiau_id, ecd_amelioration_id),
-  CONSTRAINT ECD_fk_1 FOREIGN KEY (ecd_materiau_id) REFERENCES Materiau(materiau_id),
-  CONSTRAINT ECD_fk_2 FOREIGN KEY (ecd_amelioration_id) REFERENCES Amelioration(amelioration_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Index pour la table `materiau_amelioration`
+--
+ALTER TABLE `materiau_amelioration`
+  ADD PRIMARY KEY (`ma_materiau_id`,`ma_amelioration_id`),
+  ADD KEY `am_fk_2` (`ma_amelioration_id`);
 
-CREATE TABLE IF NOT EXISTS Vaisseau (
-  vaisseau_id INT NOT NULL AUTO_INCREMENT,
-  vaisseau_nom VARCHAR(50),
-  vaisseau_type VARCHAR(50),
-  vaisseau_pv INT,
-  vaisseau_degat INT,
-  vaisseau_vitesse INT,
-  vaisseau_image VARCHAR(100),
-  PRIMARY KEY (vaisseau_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Index pour la table `vaisseau`
+--
+ALTER TABLE `vaisseau`
+  ADD PRIMARY KEY (`vaisseau_id`);
 
-CREATE TABLE IF NOT EXISTS Possede (
-  possede_joueur_id INT NOT NULL,
-  possede_amelioration_id INT NOT NULL,
-  possede_vaisseau_id INT NOT NULL,
-  PRIMARY KEY (possede_joueur_id, possede_amelioration_id, possede_vaisseau_id),
-  CONSTRAINT possede_fk_1 FOREIGN KEY (possede_joueur_id) REFERENCES Joueur(joueur_id),
-  CONSTRAINT possede_fk_2 FOREIGN KEY (possede_amelioration_id) REFERENCES Amelioration(amelioration_id),
-  CONSTRAINT possede_fk_3 FOREIGN KEY (possede_vaisseau_id) REFERENCES Vaisseau(vaisseau_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Index pour la table `vaisseau_arme`
+--
+ALTER TABLE `vaisseau_arme`
+  ADD PRIMARY KEY (`va_vaisseau_id`,`va_arme_id`),
+  ADD KEY `va_fk_2` (`va_arme_id`);
 
-CREATE TABLE IF NOT EXISTS Arme (
-  arme_id INT NOT NULL AUTO_INCREMENT,
-  arme_nom VARCHAR(50),
-  arme_type VARCHAR(50),
-  arme_degat INT DEFAULT 1,
-  arme_temps_recharge INT,
-  arme_image VARCHAR(100),
-  PRIMARY KEY (arme_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Contraintes pour la table `inventaire`
+--
+ALTER TABLE `inventaire`
+  ADD CONSTRAINT `inventaire_fk_1` FOREIGN KEY (`inventaire_joueur_id`) REFERENCES `joueur` (`joueur_id`),
+  ADD CONSTRAINT `inventaire_fk_2` FOREIGN KEY (`inventaire_materiau_id`) REFERENCES `materiau` (`materiau_id`);
 
-CREATE TABLE IF NOT EXISTS Equipe (
-  equipe_vaisseau_id INT NOT NULL,
-  equipe_arme_id INT NOT NULL,
-  PRIMARY KEY (equipe_vaisseau_id, equipe_arme_id),
-  CONSTRAINT equipe_fk_1 FOREIGN KEY (equipe_vaisseau_id) REFERENCES Vaisseau(vaisseau_id),
-  CONSTRAINT equipe_fk_2 FOREIGN KEY (equipe_arme_id) REFERENCES Arme(arme_id)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Contraintes pour la table `joueur_vaisseau_amelioration`
+--
+ALTER TABLE `joueur_vaisseau_amelioration`
+  ADD CONSTRAINT `jva_fk_1` FOREIGN KEY (`jva_joueur_id`) REFERENCES `joueur` (`joueur_id`),
+  ADD CONSTRAINT `jva_fk_2` FOREIGN KEY (`jva_amelioration_id`) REFERENCES `amelioration` (`amelioration_id`),
+  ADD CONSTRAINT `jva_fk_3` FOREIGN KEY (`jva_vaisseau_id`) REFERENCES `vaisseau` (`vaisseau_id`);
 
--- CREATE TABLE IF NOT EXISTS Boost (
---   boost_id INT NOT NULL AUTO_INCREMENT,
---   boost_pv INT,
---   boost_degat INT,
---   boost_vitesse INT,
---   boost_duree INT,
---   PRIMARY KEY (boost_id)
--- ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+--
+-- Contraintes pour la table `materiau_amelioration`
+--
+ALTER TABLE `materiau_amelioration`
+  ADD CONSTRAINT `am_fk_1` FOREIGN KEY (`ma_materiau_id`) REFERENCES `materiau` (`materiau_id`),
+  ADD CONSTRAINT `am_fk_2` FOREIGN KEY (`ma_amelioration_id`) REFERENCES `amelioration` (`amelioration_id`);
+
+--
+-- Contraintes pour la table `vaisseau_arme`
+--
+ALTER TABLE `vaisseau_arme`
+  ADD CONSTRAINT `va_fk_1` FOREIGN KEY (`va_vaisseau_id`) REFERENCES `vaisseau` (`vaisseau_id`),
+  ADD CONSTRAINT `va_fk_2` FOREIGN KEY (`va_arme_id`) REFERENCES `arme` (`arme_id`);
