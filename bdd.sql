@@ -10,7 +10,7 @@
 --
 
 CREATE TABLE `amelioration` (
-  `amelioration_id` int(11) NOT NULL AUTO_INCREMENT,
+  `amelioration_id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `amelioration_nom` varchar(50) NOT NULL,
   `amelioration_pv` int(11) DEFAULT '0',
   `amelioration_vitesse` int(11) DEFAULT '0',
@@ -25,7 +25,7 @@ CREATE TABLE `amelioration` (
 --
 
 CREATE TABLE `arme` (
-  `arme_id` int(11) NOT NULL AUTO_INCREMENT,
+  `arme_id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `arme_nom` varchar(50) DEFAULT NULL,
   `arme_type` varchar(50) DEFAULT NULL,
   `arme_degat` int(11) DEFAULT '1',
@@ -53,7 +53,7 @@ CREATE TABLE `inventaire` (
 --
 
 CREATE TABLE `joueur` (
-  `joueur_id` int(11) NOT NULL AUTO_INCREMENT,
+  `joueur_id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `joueur_nom` varchar(50) NOT NULL,
   `joueur_mdp` varchar(40) NOT NULL,
   `joueur_niveau` int(11) DEFAULT '1',
@@ -79,7 +79,7 @@ CREATE TABLE `joueur_vaisseau_amelioration` (
 --
 
 CREATE TABLE `materiau` (
-  `materiau_id` int(11) NOT NULL AUTO_INCREMENT,
+  `materiau_id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `materiau_nom` varchar(50) NOT NULL,
   `materiau_description` varchar(1024) DEFAULT NULL,
   `materiau_rarete` varchar(50) DEFAULT 'Commun',
@@ -105,7 +105,7 @@ CREATE TABLE `materiau_amelioration` (
 --
 
 CREATE TABLE `vaisseau` (
-  `vaisseau_id` int(11) NOT NULL AUTO_INCREMENT,
+  `vaisseau_id` int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
   `vaisseau_nom` varchar(50) DEFAULT NULL,
   `vaisseau_type` varchar(50) DEFAULT NULL,
   `vaisseau_pv` int(11) DEFAULT NULL,
@@ -127,29 +127,12 @@ CREATE TABLE `vaisseau_arme` (
 
 
 --
--- Index pour la table `amelioration`
---
-ALTER TABLE `amelioration`
-  ADD PRIMARY KEY (`amelioration_id`);
-
---
--- Index pour la table `arme`
---
-ALTER TABLE `arme`
-  ADD PRIMARY KEY (`arme_id`);
-
---
 -- Index pour la table `inventaire`
 --
 ALTER TABLE `inventaire`
   ADD PRIMARY KEY (`inventaire_joueur_id`,`inventaire_materiau_id`),
   ADD KEY `inventaire_fk_2` (`inventaire_materiau_id`);
 
---
--- Index pour la table `joueur`
---
-ALTER TABLE `joueur`
-  ADD PRIMARY KEY (`joueur_id`);
 
 --
 -- Index pour la table `joueur_vaisseau_amelioration`
@@ -159,11 +142,6 @@ ALTER TABLE `joueur_vaisseau_amelioration`
   ADD KEY `jva_fk_2` (`jva_amelioration_id`),
   ADD KEY `jva_fk_3` (`jva_vaisseau_id`);
 
---
--- Index pour la table `materiau`
---
-ALTER TABLE `materiau`
-  ADD PRIMARY KEY (`materiau_id`);
 
 --
 -- Index pour la table `materiau_amelioration`
@@ -172,11 +150,6 @@ ALTER TABLE `materiau_amelioration`
   ADD PRIMARY KEY (`ma_materiau_id`,`ma_amelioration_id`),
   ADD KEY `am_fk_2` (`ma_amelioration_id`);
 
---
--- Index pour la table `vaisseau`
---
-ALTER TABLE `vaisseau`
-  ADD PRIMARY KEY (`vaisseau_id`);
 
 --
 -- Index pour la table `vaisseau_arme`
