@@ -1,41 +1,121 @@
+/* 
+ * Script pour le comportement des vaisseaux
+ */
+
+
 using UnityEngine;
 using System.Collections;
 
-/* 
- * Script pour le comportement des vaisseaus
- */
-
 public class spaceshipBehaviour : MonoBehaviour{
-	
+
+	/* en attendant, pour tester */
     public float _speed = 10.0f; // vitesse
     public float _strafeSpeed = 10.0f; // vitesse quand vers la droite ou gauche
     private const float CAMERA_TURN_FACTOR = 10.0f; // vitesse camera avec la souris
-    public GameObject _cameraPivot; // objet camera
 
-	// Initialisation
-    void Start (){
+    public GameObject _cameraPivot; // objet camera
+	public GameObject interfaceC; // objet dont le script contient equipe choisie
+	public int team;
+
+	// point de spawn equipe bleue
+	public GameObject spawnBlue1; 
+	public GameObject spawnBlue2;
+	public GameObject spawnBlue3;
+
+	// point de spawn equipe rouge
+	public GameObject spawnRed1;
+	public GameObject spawnRed2;
+	public GameObject spawnRed3;
+
+
+
+	/*********************************************************************
+	************************* START & UPDATE *****************************
+	*********************************************************************/
+  
+	void Start (){
+
+		// On recupere l'equipe choisie
+		teamChoosed();
+
+		// Place joueur selon son équipe
+		/* Il y a une zone safe sur la map pour chaque équipe, 
+		 * chaque zone dispose de 2 points de spawn, les joueurs apparaîssent
+		 * alternativement sur l'un puis sur l'autre.
+		 * Les points de spawn sont matérialisés sur la map par des EmptyObject */
+		/* pour l'instant le joueur apparait sur le spawn 1, a voir en mulitijoueur pour 
+		alterne le point de spawn */
+		spawn (team);
+
+		// curseur visible
         Cursor.visible = true;
 	}
-
-    void Update (){
 		
-        // Mouvement souris
-        float horizontalMouseInput = Input.GetAxis("Mouse X");
-        float verticalMouseInput = Input.GetAxis("Mouse Y");
+    void Update (){
 
- 		// Camera
-        transform.RotateAround(transform.position, transform.up, 
+		// mouvements camera et joueur (en attendant)
+		moovePlayerCamera ();
+	}
+
+
+
+	/*********************************************************************
+	************************** FONCTIONS *********************************
+	*********************************************************************/
+
+	// Pour savoir quelle equipe a été choisie
+	void teamChoosed(){
+
+		// on recupere objet interface sur lequel est placé le script "menu"
+		// qui contient la variable indiquant l'équie
+		interfaceC = GameObject.Find ("Interface");
+		// recupere variables script menu
+		menu _menu = interfaceC.GetComponent<menu>();
+		team = _menu.team; // equipe choisie
+
+		// on definit le tag correspondant
+		if (team == 1) 
+			this.tag = "Equipe1";
+		else 
+			this.tag = "Equipe2";
+	}
+
+	// En attendant pour tester
+	// Mouvements joueur et camera
+	void moovePlayerCamera(){
+		
+		// Mouvement souris
+		float horizontalMouseInput = Input.GetAxis("Mouse X");
+		float verticalMouseInput = Input.GetAxis("Mouse Y");
+
+		// Camera
+		transform.RotateAround(transform.position, transform.up, 
 			CAMERA_TURN_FACTOR * horizontalMouseInput);
-        _cameraPivot.transform.RotateAround(_cameraPivot.transform.position,
-            _cameraPivot.transform.right, 
-            - CAMERA_TURN_FACTOR * verticalMouseInput);
+		_cameraPivot.transform.RotateAround(_cameraPivot.transform.position,
+			_cameraPivot.transform.right, 
+			- CAMERA_TURN_FACTOR * verticalMouseInput);
 
-        // Touche flèches du clavier
-        float horizontalInput = Input.GetAxis("Horizontal");
-        float verticalInput = Input.GetAxis("Vertical");
+		// Touche flèches du clavier
+		float horizontalInput = Input.GetAxis("Horizontal");
+		float verticalInput = Input.GetAxis("Vertical");
 
 		// Modification position joueur
-        transform.position += transform.forward * _speed * Time.deltaTime * verticalInput
-                           + transform.right * _strafeSpeed * Time.deltaTime * horizontalInput;
-    }
+		transform.position += transform.forward * _speed * Time.deltaTime * verticalInput
+			+ transform.right * _strafeSpeed * Time.deltaTime * horizontalInput;
+	}
+
+
+	// pour que le joueur spawn dans la zone safe selon son equipe
+	void spawn(int team){
+
+		// verifie equipe
+		if (team == 1) {
+			transform.position = spawnBlue1.transform.position;
+		} else {
+			transform.position = spawnRed1.transform.position;
+			// on rotate pour qu'il soit vers la sortie
+			transform.Rotate(0,180,0);
+		}
+	}
+
 }

@@ -16,7 +16,11 @@ public class asteroidBehavior : MonoBehaviour {
 	private float x, y, z;
 	private float xCenter, yCenter, zCenter;
 
-	// Use this for initialization
+
+	/*********************************************************************
+	************************* START & UPDATE *****************************
+	*********************************************************************/
+
 	void Start () {
 		// Coordonnees de rotation
 		x = Random.Range (1, 30);
@@ -28,11 +32,16 @@ public class asteroidBehavior : MonoBehaviour {
 		zCenter = center.transform.position.z;
 	}
 
-	// Update is called once per frame
 	void Update () {
 		randomRotation ();
 		moveInCircle ();
 	}
+
+
+
+	/*********************************************************************
+	************************** FONCTIONS *********************************
+	*********************************************************************/
 
 	void randomRotation() {
 		transform.Rotate (new Vector3 (x, y, z) * Time.deltaTime);
