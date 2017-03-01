@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//by Nathan URBAIN
+
 public class CameraMovments : MonoBehaviour {
 
 	//variable pour camera 
@@ -10,31 +12,31 @@ public class CameraMovments : MonoBehaviour {
 
 	//Variable de player 
 	private Transform _transformplayer;
-	private GameObject _player;
+	private GameObject _player ;
 	private Vector3 _vaisseaupos;
 
 	//Variable de marge de deplacement
 	public float hauteur = 3f;
 	public float distance = 50f;
 	public float marge = 15f;
-
+	private int state = 0;
 
 	// Use this for initialization
 	void Start () {
-
-		//Recherche de joueur 
-		_player = GameObject.FindGameObjectWithTag ("Player");
-		_transformplayer = _player.transform;
 
 	}
 	
 	// Update is called once per frame
 	//Effectue une ligne entre la position de la souris et le centre de la camera 
 	void Update () {
+		if (state == 0)
+			init();
+		
 		viewligne = Camera.main.ScreenPointToRay (SourisPos);
 	}
 
 	void LateUpdate(){
+		
 		SmoothFollow ();
 	}
 
@@ -56,4 +58,12 @@ public class CameraMovments : MonoBehaviour {
 		transform.LookAt (_transformplayer, _transformplayer.up);
 
 		}
+
+	void init()
+	{
+		_player = GameObject.Find("Player");
+		Debug.Log (_player.name);
+		_transformplayer = _player.transform;
+		state =1;
+	}
 }

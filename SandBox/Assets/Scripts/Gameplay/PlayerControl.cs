@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//by Nathan URBAIN
+
 public class PlayerControl : MonoBehaviour {
 
 	//Variable de speed
@@ -25,21 +27,48 @@ public class PlayerControl : MonoBehaviour {
 		//avance tout le temps a une vitesse donné
 		transform.Translate (Vector3.forward * Time.deltaTime * Speed);
 
-		tirer ();
+		looping();
+		tirer();
 
 	}
 
 
 	void tirer()
 	{
-		if(Input.GetKey("Fire1"))
+		if(Input.GetKeyDown("mouse 0"))
 		{
 			GameObject newBullet;
 			newBullet = Instantiate(bullet);
-			newBullet.transform.position = transform.position;				
-			Rigidbody rb = newBullet.GetComponent<Rigidbody> ();
-			rb.AddForce (transform.forward * bulletSpeed);
+			newBullet.transform.position = transform.position;
+			newBullet.transform.rotation = transform.rotation;
+			Rigidbody rb = newBullet.GetComponent<Rigidbody>();
+			rb.AddForce(transform.forward * bulletSpeed * Time.deltaTime);
 		}
+	}
+
+	void looping()
+	{
+		if (Input.GetKeyDown ("q")){
+			transform.Rotate( Vector3.forward * Time.deltaTime);
+			Debug.Log ("q");
+			return;
+		}
+
+		if (Input.GetKeyDown ("d")) {
+			Debug.Log ("Test");
+			return;
+		}
+
+		if (Input.GetKeyDown ("z")) {
+			Debug.Log ("Test");
+			return;
+		}
+
+		if (Input.GetKeyDown ("s")) {
+			Debug.Log ("Test");
+			return;
+		}
+
 	}
 		
 }

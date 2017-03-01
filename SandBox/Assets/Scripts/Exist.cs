@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+//by Nathan URBAIN
+
 public class Exist : MonoBehaviour {
 
 	void Awake() {

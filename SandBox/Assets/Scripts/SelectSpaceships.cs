@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using LitJson;
 using UnityEngine.SceneManagement;
 
+//by Nathan URBAIN & Lucas Pierrat
+
 public class SelectSpaceships : MonoBehaviour {
 
 	private GameObject player;
@@ -63,6 +65,6 @@ public class SelectSpaceships : MonoBehaviour {
 
 	void searchvaisseau()
 	{
-		vaisseau = GameObject.FindGameObjectsWithTag ("Vaisseau");
+		vaisseau = GameObject.FindGameObjectsWithTag("Vaisseaux");
 	}
 }

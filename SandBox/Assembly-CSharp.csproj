@@ -46,9 +46,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Scripts\ActivationVaisseau.cs" />
      <Compile Include="Assets\Scripts\Exist.cs" />
      <Compile Include="Assets\Scripts\Gameplay\CameraMovments.cs" />
      <Compile Include="Assets\Scripts\Gameplay\PlayerControl.cs" />
+     <Compile Include="Assets\Scripts\InitialisationGame.cs" />
+     <Compile Include="Assets\Scripts\Map\asteroidBehavior.cs" />
+     <Compile Include="Assets\Scripts\Map\limitsMap.cs" />
+     <Compile Include="Assets\Scripts\Map\menuTeam.cs" />
+     <Compile Include="Assets\Scripts\Map\moveAround.cs" />
+     <Compile Include="Assets\Scripts\Map\portalCreation.cs" />
+     <Compile Include="Assets\Scripts\Map\portalEnter.cs" />
+     <Compile Include="Assets\Scripts\Map\spaceshipBehaviour.cs" />
      <Compile Include="Assets\Scripts\SelectSpaceships.cs" />
      <Compile Include="Assets\Scripts\User\Information.cs" />
      <Compile Include="Assets\Scripts\User\InscriptionUser.cs" />
@@ -56,6 +65,17 @@
      <Compile Include="Assets\Scripts\User\connectionUser.cs" />
      <Compile Include="Assets\Scripts\Vaisseau.cs" />
      <Compile Include="Assets\Scripts\menu.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_BGScroller.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_DestroyByBoundary.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_DestroyByContact.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_DestroyByTime.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_EvasiveManeuver.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_GameController.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_Mover.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_PlayerController.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_RandomRotator.cs" />
+     <Compile Include="Assets\_Completed-Assets\Scripts\Done_WeaponController.cs" />
+     <None Include="Assets\Prefabs\PlanetParallaxSpecular.shader" />
  <Reference Include="UnityEngine.UI">
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
  </Reference>
@@ -75,7 +95,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityVR/RuntimeEditor/UnityEngine.VR.dll</HintPath>
  </Reference>
  <Reference Include="LitJson">
- <HintPath>C:/Users/Nathan/Documents/1- Cours L3/Projet/test/Moteur_jeux/Projet_Moteur3D/SandBox/Assets/Librairy/LitJson.dll</HintPath>
+ <HintPath>C:/Users/Nathan/Documents/1- Cours L3/Integrateur/projetintegrateur/SandBox/Assets/Librairy/LitJson.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
