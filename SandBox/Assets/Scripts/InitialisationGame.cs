@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// by Elisa Kalbé & Nathan Urbain
+
 public class InitialisationGame : MonoBehaviour {
 
 	private Information player;
@@ -32,8 +34,8 @@ public class InitialisationGame : MonoBehaviour {
 		joueur.transform.position = new Vector3(8.47f , 0f, -10f);
 		joueur.GetComponent<PlayerControl>().bullet = GameObject.FindGameObjectWithTag ("Bullet");
 
-		//teamChoosed(joueur);
-		//spawn (team);
+		setTag(joueur);
+		spawn (team, joueur);
 	}
 	
 	// Update is called once per frame
@@ -41,20 +43,21 @@ public class InitialisationGame : MonoBehaviour {
 		
 	}
 
-	void spawn(int team){
+	void spawn(int team, GameObject joueur){
 
 		// verifie equipe
 		if (team == 1) {
-			MainCamera.transform.position = spawnBlue1.transform.position;
-		} else {
-			transform.position = spawnRed1.transform.position;
+			joueur.transform.position = spawnBlue1.transform.position;
 			// on rotate pour qu'il soit vers la sortie
-			MainCamera.transform.Rotate(0,180,0);
+			joueur.transform.Rotate(0,90,0);
+		} else {
+			joueur.transform.position = spawnRed1.transform.position;
+			joueur.transform.Rotate(0,-90,0);
 		}
 	}
 
 
-	void teamChoosed(GameObject joueur){
+	void setTag(GameObject joueur){
 
 		// equipe choisie
 		team = player.team; 

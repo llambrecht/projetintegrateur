@@ -8,6 +8,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// by Cyrielle Endenmann
+
 public class asteroidBehavior : MonoBehaviour {
 
 	public GameObject center;

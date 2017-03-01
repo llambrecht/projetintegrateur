@@ -2,6 +2,7 @@
  * Script pour le comportement des vaisseaux
  */
 
+// by Elisa Kalbé
 
 using UnityEngine;
 using System.Collections;
