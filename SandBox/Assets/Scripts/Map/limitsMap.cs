@@ -15,6 +15,8 @@ public class limitsMap : MonoBehaviour {
 
 	public GameObject messOut; // message pour dire au joueur de faire demi tour
 	public int playerOut = 0; // verifier si le joueur est dehors
+	public GameObject arrow; // fleche indique direction pour retourner dans la map
+	public Transform target; // cible vers laquelle la fleche regarde
 
 
 	/*********************************************************************
@@ -23,6 +25,12 @@ public class limitsMap : MonoBehaviour {
 
 	void Start () {
 		messOut.SetActive (false);
+		arrow.SetActive (false);
+
+	}
+
+	void Update(){
+		arrow.transform.LookAt (target); // on dirige fleche vers centre de la map
 	}
 
 
@@ -34,8 +42,10 @@ public class limitsMap : MonoBehaviour {
 	private void OnTriggerExit(Collider collision){
 
 		// On verifie qu'il s'agit du joueur
-		if (collision.tag == "Player" || collision.tag == "Equipe1" || collision.tag == "Equipe2") {
+		if (collision.tag == "Equipe1" || collision.tag == "Equipe2") {
+			
 			messOut.SetActive (true); // affiche message
+			arrow.SetActive(true); // affiche flèche
 			// routine pour afficher message quitte partie au bout de 5 sec
 			StartCoroutine(outOfMap()); 
 			playerOut = -1;
@@ -44,8 +54,9 @@ public class limitsMap : MonoBehaviour {
 
 	// Lorsque le joueur revient dans la map
 	private void OnTriggerEnter(Collider collision){
-		if (collision.tag == "Player" || collision.tag == "Equipe1" || collision.tag == "Equipe2") {
+		if (collision.tag == "Equipe1" || collision.tag == "Equipe2") {
 			messOut.SetActive (false);
+			arrow.SetActive (false);
 			playerOut = 0;
 		}
 	}
@@ -58,7 +69,7 @@ public class limitsMap : MonoBehaviour {
 		// si le joueur est toujours dehors
 		if(playerOut == -1){
 			// recharge la scene
-			Application.LoadLevel("map");
+			Application.LoadLevel("ChoixEquipe");
 		}
 	}
 }

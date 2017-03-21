@@ -51,6 +51,7 @@
      <Compile Include="Assets\Scripts\Gameplay\CameraMovments.cs" />
      <Compile Include="Assets\Scripts\Gameplay\PlayerControl.cs" />
      <Compile Include="Assets\Scripts\InitialisationGame.cs" />
+     <Compile Include="Assets\Scripts\Map\SpawnSafeZone.cs" />
      <Compile Include="Assets\Scripts\Map\asteroidBehavior.cs" />
      <Compile Include="Assets\Scripts\Map\limitsMap.cs" />
      <Compile Include="Assets\Scripts\Map\menuTeam.cs" />

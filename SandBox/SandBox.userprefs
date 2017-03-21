@@ -1,13 +1,15 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\InitialisationGame.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Map\SpawnSafeZone.cs">
     <Files>
       <File FileName="Assets\Scripts\Gameplay\CameraMovments.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Map\limitsMap.cs" Line="8" Column="1" />
-      <File FileName="Assets\Scripts\Map\portalEnter.cs" Line="20" Column="31" />
+      <File FileName="Assets\Scripts\Map\limitsMap.cs" Line="33" Column="77" />
+      <File FileName="Assets\Scripts\Map\SpawnSafeZone.cs" Line="22" Column="3" />
+      <File FileName="Assets\Scripts\Map\portalEnter.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\menu.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\ActivationVaisseau.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\InitialisationGame.cs" Line="55" Column="31" />
+      <File FileName="Assets\Scripts\InitialisationGame.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Map\menuTeam.cs" Line="33" Column="2" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
