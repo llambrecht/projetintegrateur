@@ -63,10 +63,15 @@ public class InitialisationGame : MonoBehaviour {
 		team = player.team; 
 
 
-		// on definit le tag correspondant
-		if (team == 1) 
+		// on definit le tag correspondant et la couleur du nom
+		if (team == 1) {
 			joueur.tag = "Equipe1";
-		else 
+			// Couleur de l'outline en rouge
+			joueur.transform.GetChild (1).gameObject.GetComponent<TextMesh> ().color = Color.red;
+		} else {
 			joueur.tag = "Equipe2";
+			// Couleur de l'outline en bleu
+			joueur.transform.GetChild (1).gameObject.GetComponent<TextMesh> ().color = Color.blue;
+		}
 	}
 }
