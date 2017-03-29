@@ -58,7 +58,6 @@
      <Compile Include="Assets\Scripts\Map\moveAround.cs" />
      <Compile Include="Assets\Scripts\Map\portalCreation.cs" />
      <Compile Include="Assets\Scripts\Map\portalEnter.cs" />
-     <Compile Include="Assets\Scripts\Map\spaceshipBehaviour.cs" />
      <Compile Include="Assets\Scripts\SelectSpaceships.cs" />
      <Compile Include="Assets\Scripts\User\Information.cs" />
      <Compile Include="Assets\Scripts\User\InscriptionUser.cs" />

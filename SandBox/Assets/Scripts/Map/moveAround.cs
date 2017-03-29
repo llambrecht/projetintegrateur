@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// Louis lambrecht
 //wander behavior as inspired by Craig W. Reynolds
 //small displacement every frames
 

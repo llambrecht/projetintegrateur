@@ -1,8 +1,31 @@
-﻿using System.Collections;
+﻿/* 
+ * Nathan Urbain
+ * Elisa Kalbé	
+ * spawn.cs
+ * 
+ * Script pour initialiser le jeu.
+ * 	- recupere info joueur
+ * 	- crée le vaisseau
+ *  - défini tag du joueur en fonction de l'équipe choisie.
+ * 	- spawn du joueur dans la zone de son equipe
+ * 
+ * Parametres :
+ * 	Different points de spawn par equipe.
+ * 		- SpawnBlue1 : SpawnBlue1
+ * 		- SpawnBlue2 : SpawnBlue2
+ * 		- SpawnBlue3 : SpawnBlue3
+ * 		- SpawnRed1 : SpawnRed1	
+ * 		- SpawnRed2 : SpawnRed2
+ * 		- SpawnRed3 : SpawnRed3
+ * 
+ * 
+ * */
+ 
+
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// by Elisa Kalbé & Nathan Urbain
 
 public class InitialisationGame : MonoBehaviour {
 
@@ -34,15 +57,11 @@ public class InitialisationGame : MonoBehaviour {
 		joueur.transform.position = new Vector3(8.47f , 0f, -10f);
 		joueur.GetComponent<PlayerControl>().bullet = GameObject.FindGameObjectWithTag ("Bullet");
 
-		setTag(joueur);
-		spawn (team, joueur);
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+		setTag(joueur); // defini tag du joueur
+		spawn (team, joueur); // spawn du joueur
 	}
 
+		
 	void spawn(int team, GameObject joueur){
 
 		// verifie equipe
@@ -67,11 +86,11 @@ public class InitialisationGame : MonoBehaviour {
 		if (team == 1) {
 			joueur.tag = "Equipe1";
 			// Couleur de l'outline en rouge
-			joueur.transform.GetChild (1).gameObject.GetComponent<TextMesh> ().color = Color.red;
+			// joueur.transform.GetChild (1).gameObject.GetComponent<TextMesh> ().color = Color.red;
 		} else {
 			joueur.tag = "Equipe2";
 			// Couleur de l'outline en bleu
-			joueur.transform.GetChild (1).gameObject.GetComponent<TextMesh> ().color = Color.blue;
+			// joueur.transform.GetChild (1).gameObject.GetComponent<TextMesh> ().color = Color.blue;
 		}
 	}
 }

@@ -1,10 +1,27 @@
 ﻿/* 
+ * Elisa Kalbé
+ * limitsMap.cs
+ * 
  * Script pour indiquer au joueur de faire demi tour lorsqu'il
- * sort de la map. La scène se recharge au bout de 5 secondes si
- * le joueur est toujours en dehors de la map.
+ * sort de la map. Un flèche lui indique la direction à prendre.
+ * Le joueur perd s'il ne revient pas au bout de 5 secondes.
+ * 
+ * Dans scène Game
+ * A mettre sur l'objet : Limits
+ * 
+ * Paramètres
+ * 	- MessOut : Mess_OutOfMap
+ * 		message à afficher pour indiquer au joueur de retourner dans la map
+ * 	- PlayerOut : 0
+ * 		0 si le joueur est dans la map, 1 si il est en dehors
+ * 	- Arrow : Arrow
+ * 		flèche qui indique la direction à prendre pour retourner dans la map
+ *	- Target : target
+ *		cible visée pas la flèche (centre de la map)
+ * 
  */
 
-// by Elisa Kalbe
+
 
 using System.Collections;
 using System.Collections.Generic;
