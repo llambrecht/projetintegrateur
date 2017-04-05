@@ -71,6 +71,7 @@ public class InitialisationGame : MonoBehaviour {
 			joueur.transform.Rotate(0,90,0);
 		} else {
 			joueur.transform.position = spawnRed1.transform.position;
+			// on rotate pour qu'il soit vers la sortie
 			joueur.transform.Rotate(0,-90,0);
 		}
 	}
