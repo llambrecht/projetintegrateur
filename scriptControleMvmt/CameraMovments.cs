@@ -13,9 +13,12 @@ public class CameraMovments : MonoBehaviour {
 	private Transform _transformplayer;
 	private GameObject _player;
 	private Vector3 _vaisseaupos;
-
-	//Variable de marge de deplacement
-	public float hauteur = 3f;
+    //vitesse de rotation utilisé dans la fonction lookVaisseau ( pour les loopings)
+    private float speedLooping = 1.5f;
+    //vitesse de rotation relative au suivi du vaisseau
+    private float speedRotate = 0.05f;
+    //Variable de marge de deplacement
+    public float hauteur = 3f;
 	public float distance = 50f;
 	public float marge = 0.00010f;
 
@@ -58,7 +61,7 @@ public class CameraMovments : MonoBehaviour {
 		Quaternion _vaisseaurotat = Quaternion.LookRotation(_transformplayer.position -  _vaisseaupos , _transformplayer.up);
 
         //Rotation camera 
-		transform.rotation = Quaternion.Slerp(transform.rotation, _vaisseaurotat , 0.08f);
+		transform.rotation = Quaternion.Slerp(transform.rotation, _vaisseaurotat , speedRotate);
 
 		}
 
@@ -66,21 +69,21 @@ public class CameraMovments : MonoBehaviour {
     //  /!\ pour la suite, penser à incliner la caméra dans le bonne axe avant de bloquer les rotations
     void FollowStraight()
     {
-        //Le joueur suit le curseur avec delai
+        lookVaisseau();
 
         //Position du vaisseau par rapport a la camera suivant les valeurs données 
         _vaisseaupos = _transformplayer.TransformPoint(0, hauteur, -distance);
 
         //Position camera 
         transform.position = Vector3.Lerp(transform.position, _vaisseaupos, 0.09f);
-
-        //Rotation suivant la direction de devant (positon actuelle - inital) et d'au dessus (la position actuelle)
-        Quaternion _vaisseaurotat = Quaternion.LookRotation(_transformplayer.position - _vaisseaupos, _transformplayer.up);
     }
 
     void lookVaisseau()
     {
-        transform.LookAt(_transformplayer, transform.up);
+        //calcule la même chose que transform.LookAt(_transformplayer, transform.up); mais ne l'applique pas à l'objet
+        Quaternion _vaisseaurotat = Quaternion.LookRotation(_transformplayer.position - _vaisseaupos, transform.up);
+        //on applique la rotation nécessaire de façon "smooth"
+        transform.rotation = Quaternion.Slerp(transform.rotation, _vaisseaurotat, speedLooping * Time.deltaTime);
     }
 
     void setSuivre(bool b)
