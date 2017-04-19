@@ -33,6 +33,7 @@ public class InitialisationGame : MonoBehaviour {
 	private int team;
 	private GameObject MainCamera;
 
+	public GameObject joueur;
 	// point de spawn equipe bleue
 	public GameObject spawnBlue1; 
 	public GameObject spawnBlue2;
@@ -52,7 +53,7 @@ public class InitialisationGame : MonoBehaviour {
 		player = GameObject.FindGameObjectWithTag("Information").GetComponent<Information>();
 
 		//Creation Vaisseau depuis dossier ressources 
-		GameObject joueur = Instantiate (Resources.Load(player.model)) as GameObject;
+		joueur = Instantiate (Resources.Load(player.model)) as GameObject;
 		joueur.name = "Player";
 		joueur.transform.position = new Vector3(8.47f , 0f, -10f);
 		joueur.GetComponent<PlayerControl>().bullet = GameObject.FindGameObjectWithTag ("Bullet");
